@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_004703) do
+ActiveRecord::Schema.define(version: 2021_05_19_022650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,42 @@ ActiveRecord::Schema.define(version: 2021_05_19_004703) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.integer "unit"
+    t.integer "house_number"
+    t.string "street"
+    t.string "suburb"
+    t.integer "postcode"
+    t.bigint "states_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["states_id"], name: "index_addresses_on_states_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "trades_id", null: false
+    t.date "date_start"
+    t.date "date_finish"
+    t.boolean "completed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trades_id"], name: "index_jobs_on_trades_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "business"
+    t.bigint "jobs_id"
+    t.bigint "trades_id"
+    t.bigint "address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_profiles_on_address_id"
+    t.index ["jobs_id"], name: "index_profiles_on_jobs_id"
+    t.index ["trades_id"], name: "index_profiles_on_trades_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -53,6 +89,18 @@ ActiveRecord::Schema.define(version: 2021_05_19_004703) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -61,7 +109,10 @@ ActiveRecord::Schema.define(version: 2021_05_19_004703) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
+    t.bigint "profile_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -75,4 +126,10 @@ ActiveRecord::Schema.define(version: 2021_05_19_004703) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "states", column: "states_id"
+  add_foreign_key "jobs", "trades", column: "trades_id"
+  add_foreign_key "profiles", "addresses"
+  add_foreign_key "profiles", "jobs", column: "jobs_id"
+  add_foreign_key "profiles", "trades", column: "trades_id"
+  add_foreign_key "users", "profiles"
 end
