@@ -1,3 +1,5 @@
 class Job < ApplicationRecord
-  belongs_to :trades
+  has_many :job_trades, dependent: :destroy
+  has_many :trades, through: :job_trades
+  has_one :profile
 end

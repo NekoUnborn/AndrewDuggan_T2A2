@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 2021_05_19_022650) do
     t.index ["trades_id"], name: "index_jobs_on_trades_id"
   end
 
+  create_table "jobs_trades", id: false, force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "trade_id", null: false
+    t.bigint "jobs_id", null: false
+    t.bigint "trades_id", null: false
+    t.index ["jobs_id"], name: "index_jobs_trades_on_jobs_id"
+    t.index ["trades_id"], name: "index_jobs_trades_on_trades_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "business"
     t.bigint "jobs_id"
@@ -77,6 +86,15 @@ ActiveRecord::Schema.define(version: 2021_05_19_022650) do
     t.index ["address_id"], name: "index_profiles_on_address_id"
     t.index ["jobs_id"], name: "index_profiles_on_jobs_id"
     t.index ["trades_id"], name: "index_profiles_on_trades_id"
+  end
+
+  create_table "profiles_trades", id: false, force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.bigint "trade_id", null: false
+    t.bigint "profiles_id", null: false
+    t.bigint "trades_id", null: false
+    t.index ["profiles_id"], name: "index_profiles_trades_on_profiles_id"
+    t.index ["trades_id"], name: "index_profiles_trades_on_trades_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -128,8 +146,12 @@ ActiveRecord::Schema.define(version: 2021_05_19_022650) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "states", column: "states_id"
   add_foreign_key "jobs", "trades", column: "trades_id"
+  add_foreign_key "jobs_trades", "jobs", column: "jobs_id"
+  add_foreign_key "jobs_trades", "trades", column: "trades_id"
   add_foreign_key "profiles", "addresses"
   add_foreign_key "profiles", "jobs", column: "jobs_id"
   add_foreign_key "profiles", "trades", column: "trades_id"
+  add_foreign_key "profiles_trades", "profiles", column: "profiles_id"
+  add_foreign_key "profiles_trades", "trades", column: "trades_id"
   add_foreign_key "users", "profiles"
 end

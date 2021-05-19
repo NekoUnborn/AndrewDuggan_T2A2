@@ -7,9 +7,9 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 # upload to Github
-git add .
-git commit -m '$@'
-git push origin main
+# git add .
+git commit -m "$@"
+# git push origin main
 
 # to heroku
 # git push heroku main
