@@ -1,0 +1,17 @@
+<%= form_with model: @address, local: true do |f| %>
+    <p>
+        <%= f.label :simple1 %>
+        <%= f.text_field :simple1 %>
+    </p>
+    <p>
+        <%= f.label :collection1 %>
+        <%= f.collection_select :collection1_id, @collection1, :id, :column_to_display %>
+    </p>
+    <p>
+        <%= f.label :collection2 %>
+        <%= f.collection_check_boxes :collection2_id, @collection2, :id, :column_to_display %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>

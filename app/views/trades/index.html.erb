@@ -1,0 +1,27 @@
+<h1>trades#index</h1>
+<p>Find me in app/views/trades/index.html.erb</p>
+
+<% if policy(Trade).new? %>
+<p><%= link_to 'New Trade', new_trade_path %></p>
+<% end %>
+<table>
+  <tr>
+    <th>Name</th>
+    <% if policy(Trade).edit? || policy(Trade).destroy? %>
+      <th>Actions</th>
+    <% end%>
+  </tr>
+  <% @trades.each do |trade| %>
+    <tr>
+      <td><%= link_to trade.name, trade_path(trade) %></td>
+      <% if policy(Trade).edit? || policy(Trade).destroy? %>
+        <td>
+          <%= link_to 'Edit', edit_trade_path(trade) if policy(Trade).edit? %>
+          |
+          <%= link_to 'Destroy', trade, method: :delete, data: { confirm: 'Are you sure?' } if policy(Trade).destroy? %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+

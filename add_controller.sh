@@ -53,8 +53,8 @@ echo "  end" >> ./app/controllers/$1_controller.rb
 echo "" >> ./app/controllers/$1_controller.rb
 
 # defining create
-echo "    @$2 = ${2^}.new($2_params)" >> ./app/controllers/$1_controller.rb
 echo "  def create" >> ./app/controllers/$1_controller.rb
+echo "    @$2 = ${2^}.new($2_params)" >> ./app/controllers/$1_controller.rb
 echo "    if @$2.save" >> ./app/controllers/$1_controller.rb
 echo "      redirect_to @$2" >> ./app/controllers/$1_controller.rb
 echo "    else" >> ./app/controllers/$1_controller.rb

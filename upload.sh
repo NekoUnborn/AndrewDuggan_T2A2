@@ -5,11 +5,12 @@ if [[ $# -eq 0 ]] ; then
     echo 'add comment as argument'
     exit 1
 fi
+str="$*"
 
 # upload to Github
-# git add .
-git commit -m "$@"
-# git push origin main
+git add .
+git commit -m "$str"
+git push origin main
 
 # to heroku
 # git push heroku main

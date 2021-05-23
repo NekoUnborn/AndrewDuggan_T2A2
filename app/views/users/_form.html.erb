@@ -1,0 +1,23 @@
+<%= form_with model: @user, local: true do |f| %>
+    <p>
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+    </p>
+    <p>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+    </p>
+    <% user.has_role? :%>
+    <p>
+        <%= f.label :trades %>
+        <%= f.collection_select :collection1_id, @collection1, :id, :column_to_display %>
+    </p>
+
+    <p>
+        <%= f.label :collection2 %>
+        <%= f.collection_check_boxes :collection2_id, @collection2, :id, :column_to_display %>
+    </p>
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>

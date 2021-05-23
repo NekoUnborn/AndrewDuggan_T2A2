@@ -1,4 +1,4 @@
-class ApplicationPolicy
+class TradePolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,15 +7,15 @@ class ApplicationPolicy
   end
 
   def index?
-    user.has_role? :admin
+    super
   end
 
   def show?
-    user.has_role? :admin
+    super
   end
 
   def create?
-    user.has_role? :admin
+    super
   end
 
   def new?
@@ -23,15 +23,15 @@ class ApplicationPolicy
   end
 
   def update?
-    user.has_role? :admin
+    super
   end
 
   def edit?
-    user.has_role? :admin
+    update?
   end
 
   def destroy?
-    user.has_role? :admin
+    super
   end
 
   class Scope

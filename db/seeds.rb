@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Trade.destroy_all
+Trade.create(name: "Plumber")
+Trade.create(name: "Telecommunications")
+Trade.create(name: "Painter")
+Trade.create(name: "Plasterer")
+Trade.create(name: "Carpenter")
+Trade.create(name: "Electrician")
+Trade.create(name: "Other")
+
+Role.destroy_all
+Role.create(name: 'user')
+Role.create(name: 'admin')
+Role.create(name: 'tradie')
