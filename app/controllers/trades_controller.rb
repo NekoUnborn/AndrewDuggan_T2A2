@@ -3,6 +3,7 @@ class TradesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
   before_action :set_trade, only: %i[show update destroy edit]
+  before_action :check_auth
 
   def index
     @trades = Trade.all

@@ -8,6 +8,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :username, uniqueness: true
+  validates :email, uniqueness: true
+
   has_one :profile, dependent: :destroy
 
   def assign_default_role

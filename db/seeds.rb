@@ -19,3 +19,4 @@ Role.destroy_all
 Role.create(name: 'user')
 Role.create(name: 'admin')
 Role.create(name: 'tradie')
+

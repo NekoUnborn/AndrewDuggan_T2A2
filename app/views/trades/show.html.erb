@@ -1,6 +1,16 @@
 <h1>trades#show</h1>
 <p>Find me in app/views/trades/show.html.erb</p>
  
-
+<table>
+  <tr>
+    <th>Username</th>
+  </tr>
+  <% @role.users.each do |user| %>
+    <tr>
+      <td><%= link_to user[:username], user_path %></td>
+      <td><%= user[:email] %></td>
+    </tr>
+  <% end %>
+</table>
 
 <p><%= link_to '<< Back', trades_path %> | <%= link_to 'Edit', edit_trade_path %> | <%= link_to 'Delete', @trade, method: :delete, data: { confirm: 'Are you sure?' } %></p>

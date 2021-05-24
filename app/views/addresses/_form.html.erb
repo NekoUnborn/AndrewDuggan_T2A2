@@ -1,16 +1,30 @@
 <%= form_with model: @address, local: true do |f| %>
+:unit, :house_number, :street, :suburb, :postcode, :state_id
     <p>
-        <%= f.label :simple1 %>
-        <%= f.text_field :simple1 %>
+        <%= f.label :unit %>
+        <%= f.text_field :unit %>
     </p>
     <p>
-        <%= f.label :collection1 %>
-        <%= f.collection_select :collection1_id, @collection1, :id, :column_to_display %>
+        <%= f.label :house_number %>
+        <%= f.text_field :house_number %>
     </p>
     <p>
-        <%= f.label :collection2 %>
-        <%= f.collection_check_boxes :collection2_id, @collection2, :id, :column_to_display %>
+        <%= f.label :street %>
+        <%= f.text_field :street %>
     </p>
+    <p>
+        <%= f.label :suburb %>
+        <%= f.text_field :suburb %>
+    </p>
+    <p>
+        <%= f.label :postcode %>
+        <%= f.text_field :postcode %>
+    </p>
+    <p>
+        <%= f.label :state %>
+        <%= f.collection_select :state_id, @states, :id, :name %>
+    </p>
+
     <p>
         <%= f.submit %>
     </p>

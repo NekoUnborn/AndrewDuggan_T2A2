@@ -2,7 +2,8 @@ class RolesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
-  before_action :set_role, only: %i[show update destroy edit]
+  before_action :set_role, only: %i[show update destroy edit remove_role]
+  before_action :check_auth
 
   def index
     @roles = Role.all
@@ -40,6 +41,15 @@ class RolesController < ApplicationController
     redirect_to roles_path
   end
 
+  def remove_role_from_user
+    user = User.find(params[:user_id])
+    role = Role.find(params[:role_id])
+    user.remove_role(role.name.to_sym)
+    redirect_to role
+  end
+
+  def add_user; end
+
   private
 
   def set_role
@@ -48,5 +58,9 @@ class RolesController < ApplicationController
 
   def role_params
     params.require(:role).permit(:name)
+  end
+
+  def check_auth
+    authorize Role
   end
 end

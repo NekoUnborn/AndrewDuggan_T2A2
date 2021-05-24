@@ -1,4 +1,17 @@
-<h1>roles#show</h1>
-<p>Find me in app/views/roles/show.html.erb</p>
-
+<h2><%= @role.name %></h2>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+  </tr>
+  <% @role.users.each do |user| %>
+    <tr>
+      <td><%= link_to user[:username], user_path %></td>
+      <td><%= user[:email] %></td>
+      <td>
+        <%= link_to 'Remove role from user', remove_role_from_user_path(@role.id, user.id), method: :delete  %>
+      </td>
+    </tr>
+  <% end %>
+</table>
 <p><%= link_to '<< Back', roles_path %> | <%= link_to 'Edit', edit_role_path %> | <%= link_to 'Delete', @role, method: :delete, data: { confirm: 'Are you sure?' } %></p>

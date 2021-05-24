@@ -1,17 +1,35 @@
 <%= form_with model: @job, local: true do |f| %>
     <p>
-        <%= f.label :simple1 %>
-        <%= f.text_field :simple1 %>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
     </p>
     <p>
-        <%= f.label :collection1 %>
-        <%= f.collection_select :collection1_id, @collection1, :id, :column_to_display %>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
     </p>
     <p>
-        <%= f.label :collection2 %>
-        <%= f.collection_check_boxes :collection2_id, @collection2, :id, :column_to_display %>
+        <%= f.label :trade %>
+        <%= f.collection_check_boxes :trade_id, @trades, :id, :name %>
     </p>
+    <p>
+        <%= f.label :date_start %>
+        <%= f.date_field :date_start %>
+    </p>
+    <p>
+        <%= f.label :date_finish %>
+        <%= f.date_field :date_finish %>
+    </p>
+    <p>
+        <%= f.label :completed %>
+        <%= f.boolean_field :completed %>
+    </p>
+
     <p>
         <%= f.submit %>
     </p>
 <% end %>
+
+    <p>
+        <%= f.label :collection1 %>
+        <%= f.collection_select :collection1_id, @collection1, :id, :column_to_display %>
+    </p>

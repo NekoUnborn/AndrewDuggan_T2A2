@@ -1,7 +1,10 @@
 class AddressesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+
   before_action :set_address, only: %i[show update destroy edit]
+  before_action :set_state, only: %i[show update destroy edit]
+  before_action :check_auth
 
   def index
     @addresses = Address.all
@@ -47,5 +50,9 @@ class AddressesController < ApplicationController
 
   def address_params
     params.require(:address).permit(:unit, :house_number, :street, :suburb, :postcode, :state_id)
+  end
+
+  def set_states
+    @states = State.order(:name)
   end
 end

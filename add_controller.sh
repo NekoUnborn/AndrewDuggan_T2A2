@@ -22,14 +22,14 @@ rails g controller $1
 printf "\n\nAdding the resources to routes.rb\n\n"
 sed -i '$d' ./config/routes.rb
 echo "" >> ./config/routes.rb
-echo "#  get '$1', to: '$1#index', as: '$1'" >> ./config/routes.rb
-echo "#  post '$1', to: '$1#create'" >> ./config/routes.rb
-echo "#  get '$1/new', to: '$1#new', as: 'new_$2'" >> ./config/routes.rb
-echo "#  get '$1/:id', to: '$1#show', as: '$2'" >> ./config/routes.rb
-echo "#  get '$1/:id/edit', to: '$1#edit', as: 'edit_$2'" >> ./config/routes.rb
-echo "#  put '$1/:id', to: '$1#update'" >> ./config/routes.rb
-echo "#  patch '$1/:id', to: '$1#update'" >> ./config/routes.rb
-echo "#  delete '$1/:id', to: '$1#destroy'" >> ./config/routes.rb
+echo "  get '$1', to: '$1#index', as: '$1'" >> ./config/routes.rb
+echo "  post '$1', to: '$1#create'" >> ./config/routes.rb
+echo "  get '$1/new', to: '$1#new', as: 'new_$2'" >> ./config/routes.rb
+echo "  get '$1/:id', to: '$1#show', as: '$2'" >> ./config/routes.rb
+echo "  get '$1/:id/edit', to: '$1#edit', as: 'edit_$2'" >> ./config/routes.rb
+echo "  put '$1/:id', to: '$1#update'" >> ./config/routes.rb
+echo "  patch '$1/:id', to: '$1#update'" >> ./config/routes.rb
+echo "  delete '$1/:id', to: '$1#destroy'" >> ./config/routes.rb
 echo "end" >> ./config/routes.rb
 
 # scripting the controller
@@ -160,4 +160,6 @@ echo "<p><%= link_to '<< Back', $1_path %> | <%= link_to 'Edit', edit_$2_path %>
 
 echo "Controller created"
 
-exit 0
+git add .
+git commit -m "Added $1 controller and basic views"
+git push origin main
