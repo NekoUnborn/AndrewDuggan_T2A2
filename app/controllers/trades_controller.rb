@@ -50,4 +50,7 @@ class TradesController < ApplicationController
   def trade_params
     params.require(:trade).permit(:name)
   end
+  def check_auth
+    authorize Trade
+end
 end

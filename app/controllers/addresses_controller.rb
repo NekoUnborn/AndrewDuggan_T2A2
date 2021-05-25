@@ -7,7 +7,7 @@ class AddressesController < ApplicationController
   before_action :check_auth
 
   def index
-    @addresses = Address.all
+    @addresses = Address.all # retrieves all of the addresses db
   end
 
   def new
@@ -55,4 +55,7 @@ class AddressesController < ApplicationController
   def set_states
     @states = State.order(:name)
   end
+  def check_auth
+    authorize Address
+end
 end

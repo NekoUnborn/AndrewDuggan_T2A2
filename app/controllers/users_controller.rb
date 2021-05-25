@@ -59,4 +59,8 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :email, :profile_id, roles_id: [])
   end
+
+  def check_auth
+    authorize User
+end
 end

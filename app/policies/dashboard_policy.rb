@@ -11,10 +11,12 @@ class JobPolicy < ApplicationPolicy
   end
 
   def show?
+    current_user.username = user.username
     super
   end
 
   def create?
+    current_user.username = user.username
     super
   end
 
@@ -23,6 +25,7 @@ class JobPolicy < ApplicationPolicy
   end
 
   def update?
+    current_user.username = user.username
     super
   end
 

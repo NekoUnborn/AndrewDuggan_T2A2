@@ -48,4 +48,7 @@ class DashboardsController < ApplicationController
   def dashboard_params
     params.require(:dashboard).permit(:param1, :param2)
   end
+  def check_auth
+    authorize Dashboard
+end
 end

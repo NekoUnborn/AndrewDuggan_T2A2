@@ -1,4 +1,28 @@
 <h1>addresses#show</h1>
 <p>Find me in app/views/addresses/show.html.erb</p>
-
+<table>
+  <tr>
+    <th>Unit</th>
+    <th>Number</th>
+    <th>Street</th>
+    <th>Suburb</th>
+    <th>Postcode</th>
+    <th>State</th>
+  </tr>
+  <% @addresses.each do |address| %>
+    <tr>
+      <% if address.unit?%>
+        <td><%= address[:unit] %></td>
+        <% else %>
+        <td></td>
+      <% end%>
+      <td><%= address[:house_number] %></td>
+      <td><%= address[:street] %></td>
+      <td><%= address[:suburb] %></td>
+      <td><%= address[:postcode] %></td>
+      <%# Finds the state from the db and displays the name %>
+      <td><%= @states.find(address[:state_id])[:name] %></td>
+    </tr>
+  <% end %>
+</table>
 <p><%= link_to '<< Back', addresses_path %> | <%= link_to 'Edit', edit_address_path %> | <%= link_to 'Delete', @address, method: :delete, data: { confirm: 'Are you sure?' } %></p>

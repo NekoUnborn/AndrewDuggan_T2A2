@@ -54,4 +54,7 @@ class JobsController < ApplicationController
   def set_trades
     @trades = Trade.order(:id)
   end
+  def check_auth
+    authorize Job
+end
 end
