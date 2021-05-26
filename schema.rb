@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_26_005158) do
+ActiveRecord::Schema.define(version: 2021_05_19_022650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,50 +49,52 @@ ActiveRecord::Schema.define(version: 2021_05_26_005158) do
     t.string "street", null: false
     t.string "suburb", null: false
     t.integer "postcode", null: false
-    t.bigint "state_id", null: false
-    t.bigint "profile_id", null: false
+    t.bigint "states_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id"], name: "index_addresses_on_profile_id"
-    t.index ["state_id"], name: "index_addresses_on_state_id"
-  end
-
-  create_table "job_trades", force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.bigint "trade_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["job_id"], name: "index_job_trades_on_job_id"
-    t.index ["trade_id"], name: "index_job_trades_on_trade_id"
+    t.index ["states_id"], name: "index_addresses_on_states_id"
   end
 
   create_table "jobs", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.bigint "profile_id", null: false
+    t.bigint "trades_id", null: false
     t.date "date_start"
     t.date "date_finish"
     t.boolean "completed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id"], name: "index_jobs_on_profile_id"
+    t.index ["trades_id"], name: "index_jobs_on_trades_id"
   end
 
-  create_table "profile_trades", force: :cascade do |t|
-    t.bigint "profile_id", null: false
+  create_table "jobs_trades", id: false, force: :cascade do |t|
+    t.bigint "job_id", null: false
     t.bigint "trade_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["profile_id"], name: "index_profile_trades_on_profile_id"
-    t.index ["trade_id"], name: "index_profile_trades_on_trade_id"
+    t.bigint "jobs_id", null: false
+    t.bigint "trades_id", null: false
+    t.index ["jobs_id"], name: "index_jobs_trades_on_jobs_id"
+    t.index ["trades_id"], name: "index_jobs_trades_on_trades_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.string "business"
-    t.bigint "user_id", null: false
+    t.bigint "jobs_id"
+    t.bigint "trades_id"
+    t.bigint "address_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
+    t.index ["address_id"], name: "index_profiles_on_address_id"
+    t.index ["jobs_id"], name: "index_profiles_on_jobs_id"
+    t.index ["trades_id"], name: "index_profiles_on_trades_id"
+  end
+
+  create_table "profiles_trades", id: false, force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.bigint "trade_id", null: false
+    t.bigint "profiles_id", null: false
+    t.bigint "trades_id", null: false
+    t.index ["profiles_id"], name: "index_profiles_trades_on_profiles_id"
+    t.index ["trades_id"], name: "index_profiles_trades_on_trades_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -126,7 +128,9 @@ ActiveRecord::Schema.define(version: 2021_05_26_005158) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "username"
+    t.bigint "profile_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -140,12 +144,14 @@ ActiveRecord::Schema.define(version: 2021_05_26_005158) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "profiles"
-  add_foreign_key "addresses", "states"
-  add_foreign_key "job_trades", "jobs"
-  add_foreign_key "job_trades", "trades"
-  add_foreign_key "jobs", "profiles"
-  add_foreign_key "profile_trades", "profiles"
-  add_foreign_key "profile_trades", "trades"
-  add_foreign_key "profiles", "users"
+  add_foreign_key "addresses", "states", column: "states_id"
+  add_foreign_key "jobs", "trades", column: "trades_id"
+  add_foreign_key "jobs_trades", "jobs", column: "jobs_id"
+  add_foreign_key "jobs_trades", "trades", column: "trades_id"
+  add_foreign_key "profiles", "addresses"
+  add_foreign_key "profiles", "jobs", column: "jobs_id"
+  add_foreign_key "profiles", "trades", column: "trades_id"
+  add_foreign_key "profiles_trades", "profiles", column: "profiles_id"
+  add_foreign_key "profiles_trades", "trades", column: "trades_id"
+  add_foreign_key "users", "profiles"
 end

@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root to: 'trades#index'
-  resources :roles, :users, :trades, :jobs, :profiles, :addresses
+  root to: 'dashboards#index'
+  resources :roles, :users, :trades, :jobs, :profiles, :addresses, :dashboards
   resources :users, only: %i[show edit update]
 
   delete 'roles/removerolefromuser/:role_id/:user_id', to: "roles#remove_role_from_user", as: "remove_role_from_user"
@@ -71,12 +71,12 @@ Rails.application.routes.draw do
   #  patch 'jobs/:id', to: 'jobs#update'
   #  delete 'jobs/:id', to: 'jobs#destroy'
 
-  get 'dashboards', to: 'dashboards#index', as: 'dashboards'
-  post 'dashboards', to: 'dashboards#create'
-  get 'dashboards/new', to: 'dashboards#new', as: 'new_dashboard'
-  get 'dashboards/:id', to: 'dashboards#show', as: 'dashboard'
-  get 'dashboards/:id/edit', to: 'dashboards#edit', as: 'edit_dashboard'
-  put 'dashboards/:id', to: 'dashboards#update'
-  patch 'dashboards/:id', to: 'dashboards#update'
-  delete 'dashboards/:id', to: 'dashboards#destroy'
+  # get 'dashboards', to: 'dashboards#index', as: 'dashboards'
+  # post 'dashboards', to: 'dashboards#create'
+  # get 'dashboards/new', to: 'dashboards#new', as: 'new_dashboard'
+  # get 'dashboards/:id', to: 'dashboards#show', as: 'dashboard'
+  # get 'dashboards/:id/edit', to: 'dashboards#edit', as: 'edit_dashboard'
+  # put 'dashboards/:id', to: 'dashboards#update'
+  # patch 'dashboards/:id', to: 'dashboards#update'
+  # delete 'dashboards/:id', to: 'dashboards#destroy'
 end

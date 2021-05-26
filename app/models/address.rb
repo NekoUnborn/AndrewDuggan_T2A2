@@ -1,4 +1,4 @@
 class Address < ApplicationRecord
   belongs_to :profile
-  has_one :state
+  belongs_to :state
 end

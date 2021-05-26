@@ -53,8 +53,9 @@ class AddressesController < ApplicationController
   end
 
   def set_states
-    @states = State.order(:name)
+    @states = State.order(:id)
   end
+  
   def check_auth
     authorize Address
 end
