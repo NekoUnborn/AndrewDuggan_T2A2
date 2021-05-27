@@ -1,4 +1,33 @@
 <h1>profiles#show</h1>
 <p>Find me in app/views/profiles/show.html.erb</p>
 
+
+
+<h2><%= current_user.profile.address.title %></h2>
+<h3>By <%= Profile.address.find(@address.user_id).username %></h3>
+
+<hr />
+<% if @address.unit? %>
+<h3><strong>Unit: </strong><%= @address.unit %></h3>
+<% end %>
+<h3>House Number: <%= @address.description %></h3>
+<h3>Trades: <%= @address.trades_to_csv %></h3>
+<h3>Date to start: <%= @address.date_start %></h3>
+<h3>Date to finish by: <%= @address.date_finish %></h3>
+<h3>Completed: <%= @address.completed %></h3>
+
+<hr />
+
+<p>
+  <%= link_to "<< Back", addresss_path %>
+  <% if policy(Address).edit? || policy(Address).destroy? %>
+    |
+    <%= link_to 'Edit', edit_address_path if policy(Address).edit? %>
+    <% if policy(Address).destroy? %>
+      |
+      <%= link_to 'Delete', @address, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end%>
+  <% end%>
+</p>
+
 <p><%= link_to '<< Back', profiles_path %> | <%= link_to 'Edit', edit_profile_path %> | <%= link_to 'Delete', @profile, method: :delete, data: { confirm: 'Are you sure?' } %></p>

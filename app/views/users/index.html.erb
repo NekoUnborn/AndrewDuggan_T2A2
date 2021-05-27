@@ -1,4 +1,55 @@
-<h1>users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
-
-<p><%= link_to 'New User', new_user_path %></p>
+<h1>Users</h1>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Roles</th>
+    <th>Address</th>
+    <th>Jobs</th>
+    <th>Actions</th>
+  </tr>
+  <% @users.each do |user| %>
+    <% if user.has_role? :user %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.roles.map {|role| role.name}.join(", ") %></td>
+        <td><%= "#{user.profile.address.unit'/' if user.profile.address.unit?}#{user.profile.address.house_number} #{user.profile.address.street}, #{user.profile.address.suburb} #{user.profile.address.postcode} #{user.profile.address.state.name}" %></td>
+        <td><%= user.profile.jobs.map {|job| job.title}.join(", ") %></td>
+        <% if policy(Job).destroy? %>
+          <td>
+            <%= link_to 'Delete User', user, method: :delete, data: { confirm: 'Are you sure?' } if policy(User).destroy? %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<hr />
+<h1>Tradies</h1>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Roles</th>
+    <th>Business Name</th>
+    <th>Trades</th>
+    <th>Actions</th>
+  </tr>
+  <% @users.each do |user| %>
+    <% if user.has_role? :tradie %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.roles.map {|role| role.name}.join(", ") %></td>
+        <td><%= user.profile.business %></td>
+        <td><%= user.profile.trades.map {|trade| trade.name}.join(", ") %></td>
+        <% if policy(Job).destroy? %>
+          <td>
+            <%= link_to 'Delete User', user, method: :delete, data: { confirm: 'Are you sure?' } if policy(User).destroy? %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

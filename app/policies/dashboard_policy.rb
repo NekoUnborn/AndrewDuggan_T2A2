@@ -7,34 +7,6 @@ class DashboardPolicy < ApplicationPolicy
   end
 
   def index?
-    super
-  end
-
-  def show?
-    current_user.username = user.username
-    super
-  end
-
-  def create?
-    current_user.username = user.username
-    super
-  end
-
-  def new?
-    create?
-  end
-
-  def update?
-    current_user.username = user.username
-    super
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    super
   end
 
   class Scope
@@ -50,3 +22,4 @@ class DashboardPolicy < ApplicationPolicy
     end
   end
 end
+

@@ -1,4 +1,28 @@
 <h1>jobs#index</h1>
 <p>Find me in app/views/jobs/index.html.erb</p>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Trades</th>
+    <% if policy(Job).edit? || policy(Job).destroy? %>
+      <th>Actions</th>
+    <% end%>
+  </tr>
+  <% @jobs.each do |job| %>
+    <tr>
+      <td><%= link_to job.title, job_path(job) %></td>
+      <td><%= link_to job.author.full_name, author_path(job.author) %></td>
+      <td><%= job.genres_to_csv %></td>
+      <% if policy(Job).edit? || policy(Job).destroy? %>
+        <td>
+          <%= link_to 'Edit', edit_job_path(job) if policy(Job).edit? %>
+          |
+          <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } if policy(Job).destroy? %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
 
 <p><%= link_to 'New Job', new_job_path %></p>

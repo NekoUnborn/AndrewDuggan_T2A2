@@ -19,14 +19,9 @@
         <% if user_signed_in? %>
           <span><%= link_to "Home", root_path %></span>
           <% if current_user.has_role? :admin %>
-            <span><%= link_to "Profiles", profile_path %></span>
-          <% else %>
             <span><%= link_to "Profiles", profiles_path %></span>
-          <% end %>
-          <% if current_user.has_role? :admin %>
             <span><%= link_to "Jobs", jobs_path %></span>
             <span><%= link_to "Users", users_path %></span>
-            <span><%= link_to "Addresses", addresses_path %></span>
             <span><%= link_to "Roles", roles_path %></span>
             <span><%= link_to "Trades", trades_path %></span>
           <% end %>

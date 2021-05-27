@@ -62,5 +62,5 @@ class UsersController < ApplicationController
 
   def check_auth
     authorize User
-end
+  end
 end

@@ -8,8 +8,8 @@
         <%= f.text_field :description %>
     </p>
     <p>
-        <%= f.label :trade %>
-        <%= f.collection_check_boxes :trade_id, @trades, :id, :name %>
+        <%= f.label :trades %>
+        <%= f.collection_check_boxes :trades_id, @trades, :id, :name %>
     </p>
     <p>
         <%= f.label :date_start %>
@@ -28,8 +28,3 @@
         <%= f.submit %>
     </p>
 <% end %>
-
-    <p>
-        <%= f.label :collection1 %>
-        <%= f.collection_select :collection1_id, @collection1, :id, :column_to_display %>
-    </p>

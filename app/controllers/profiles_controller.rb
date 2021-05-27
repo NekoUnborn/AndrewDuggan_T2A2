@@ -3,16 +3,16 @@ class ProfilesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
   before_action :set_profile, only: %i[show update destroy edit]
-  before_action :set_trades, only: %i[show update destroy edit]
-  before_action :set_addresses, only: %i[show update destroy edit]
+  before_action :set_extras, only: %i[show update destroy edit]
   before_action :check_auth
-  
+
   def index
     @profiles = Profile.all
   end
 
   def new
     @profile = Profile.new
+    @profile.build_address
   end
 
   def create
@@ -50,19 +50,20 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:business, :address, jobs_id: [], trades_id: [])
+    params.require(:profile).permit(:business,
+                                    address_attributes: %i[unit house_number street suburb postcode state_id],
+                                    jobs_id: [],
+                                    trades_id: [])
   end
 
   def set_trades
     @trades = Trade.order(:id)
   end
 
-  def set_addresses
-    @addresses = Address.all
-  end
-
-  def set_jobs
+  def set_extras
     @jobs = Jobs.all
+    @addresses = Address.all
+    @states = State.all
   end
 
   def check_auth
