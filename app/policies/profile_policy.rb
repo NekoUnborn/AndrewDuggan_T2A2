@@ -11,11 +11,11 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    made_by_current_user? || super
+    by_user? || super
   end
 
   def create?
-    made_by_current_user? || super
+    by_user? || super
   end
 
   def new?
@@ -23,7 +23,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def update?
-    made_by_current_user? || super
+    by_user? || super
   end
 
   def edit?
@@ -49,8 +49,8 @@ class ProfilePolicy < ApplicationPolicy
 
   private
 
-  def made_by_current_user?
-    current_user? && record == current_user
+  def by_user?
+    user.id? && record == user
   end
 end
 

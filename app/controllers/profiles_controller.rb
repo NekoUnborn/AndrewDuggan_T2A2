@@ -2,13 +2,13 @@ class ProfilesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
-  before_action :set_profile, only: %i[show update destroy edit]
-  before_action :set_extras, only: %i[show update destroy edit]
+  before_action :set_profile, only: %i[update edit]
+  before_action :set_extras, only: %i[update edit]
   before_action :check_auth
 
-  def index
-    @profiles = Profile.all
-  end
+  # def index
+  #   @profiles = Profile.all
+  # end
 
   def new
     @profile = Profile.new
@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def show; end
+  # def show; end
 
   def edit; end
 
@@ -38,10 +38,10 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def destroy
-    @profile.destroy
-    redirect_to profiles_path
-  end
+  # def destroy
+  #   @profile.destroy
+  #   redirect_to profiles_path
+  # end
 
   private
 

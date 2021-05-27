@@ -26,8 +26,8 @@ Trade.create(trades)
 # Seed the standard roles
 Role.destroy_all
 roles = [
-  { name: "user" },
   { name: "admin" },
+  { name: "user" },
   { name: "tradie" }
 ]
 Role.create(roles)
