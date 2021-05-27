@@ -14,10 +14,8 @@
   <% @roles.each do |role| %>
     <tr>
       <td><%= link_to role.name, role_path(role) %></td>
-      <% if policy(Role).edit? || policy(Role).destroy? %>
+      <% if policy(Role).destroy? %>
         <td>
-          <%= link_to 'Edit', edit_role_path(role) if policy(Role).edit? %>
-          |
           <%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } if policy(Role).destroy? %>
         </td>
       <% end %>

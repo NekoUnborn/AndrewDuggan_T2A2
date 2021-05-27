@@ -25,6 +25,10 @@ $
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+  <div class="field">
+        <%= f.label :trades %>
+        <%= f.collection_check_boxes :trades_id, @trades, :id, :name %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
