@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
-  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
   before_action :set_current_user_profile, only: :select_role
   before_action :set_profile, only: %i[update edit]

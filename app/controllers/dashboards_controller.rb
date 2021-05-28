@@ -5,6 +5,13 @@ class DashboardsController < ApplicationController
     elsif !current_user.profile
       redirect_to new_profile_path
     end
+
+    if current_user.has_role? :user
+      @jobs = current_user.profile.jobs.all
+    elsif current_user.has_role? :tradie
+      raise
+      @jobs = Job.where(trade_id: [current_user.prof-2ile.trades])
+    end
   end
 
   private

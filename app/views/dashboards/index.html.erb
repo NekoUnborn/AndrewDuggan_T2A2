@@ -10,6 +10,39 @@
   <h3><strong>Address: </strong><%= "#{current_user.profile.address.unit'/' if current_user.profile.address.unit?} #{current_user.profile.address.house_number} #{current_user.profile.address.street}, #{current_user.profile.address.suburb} #{current_user.profile.address.postcode} #{current_user.profile.address.state.name}" %></h3>
 <% end %>
   <p>
+
+<hr />
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Trades</th>
+    <th>Start Date</th>
+    <th>Date Finished by</th>
+    <th>Completed</th>
+    <% if policy(Job).edit? || policy(Job).destroy? %>
+      <th>Actions</th>
+    <% end%>
+  </tr>
+  <% @jobs.each do |job| %>
+    <tr>
+      <td><%= link_to job.title, job_path(job) %></td>
+      <td><%= job.description %></td>
+      <td><%= job.trades.map {|trade| trade.name}.join(", ") %></td>
+      <td><%= job.date_start %></td>
+      <td><%= job.date_finish %></td>
+      <td><%= job.completed %></td>
+      <% if policy(Job).edit? || policy(Job).destroy? %>
+        <td>
+          <%= link_to 'Edit', edit_job_path(job) if policy(Job).edit? %>
+          |
+          <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } if policy(Job).destroy? %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+
 <hr />
     <%= link_to "<< Back", users_path %>
     <% if policy(Profile).edit? || policy(User).destroy? %>

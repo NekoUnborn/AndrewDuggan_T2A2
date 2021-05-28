@@ -1,13 +1,10 @@
-<h1>jobs#show</h1>
-<p>Find me in app/views/jobs/show.html.erb</p>
-
-<h2><%= @job.title %></h2>
-<h3>By <%= User.find(@job.user_id).username %></h3>
+<h1><%= @job.title %></h1>
+<h3>By <%= @job.profile.user.username %></h3>
 
 <hr />
 
 <h3>Description: <%= @job.description %></h3>
-<h3>Trades: </strong><%= @job.trades_to_csv %></h3>
+<h3>Trades: </strong><%= job.trades.map {|trade| trade.name}.join(", ") %></h3>
 <h3>Date to start: <%= @job.date_start %></h3>
 <h3>Date to finish by: <%= @job.date_finish %></h3>
 <h3>Completed: <%= @job.completed %></h3>

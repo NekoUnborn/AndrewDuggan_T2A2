@@ -16,11 +16,10 @@
     <tr>
       <td><%= link_to job.title, job_path(job) %></td>
       <td><%= job.description %></td>
-        <td><%= user.profile.trades.map {|trade| trade.name}.join(", ") %></td>
+      <td><%= job.trades.map {|trade| trade.name}.join(", ") %></td>
       <td><%= job.date_start %></td>
       <td><%= job.date_finish %></td>
       <td><%= job.completed %></td>
-        
       <% if policy(Job).edit? || policy(Job).destroy? %>
         <td>
           <%= link_to 'Edit', edit_job_path(job) if policy(Job).edit? %>
@@ -31,5 +30,4 @@
     </tr>
   <% end %>
 </table>
-
 <p><%= link_to 'New Job', new_job_path %></p>

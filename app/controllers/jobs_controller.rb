@@ -1,9 +1,9 @@
 class JobsController < ApplicationController
   # DELETE THIS BEFORE RELEASE
-  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
   before_action :set_job, only: %i[show update destroy edit]
-  before_action :set_trades, only: %i[new create update edit]
+  before_action :set_trades, only: %i[new update edit]
   before_action :check_auth
 
   def index
@@ -16,9 +16,9 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
-    @job.user = current_user
+    @job.profile_id = current_user.profile.id
     if @job.save
-      redirect_to @job
+      redirect_to root_path
     else
       flash.now[:errors] = @job.errors.full_messages
       render action: 'new'
@@ -50,7 +50,9 @@ class JobsController < ApplicationController
   end
 
   def job_params
-    params.require(:job).permit(:title, :description, :date_start, :date_finish, :photo, :complete)
+    params.require(:job).permit(:title, :description, :date_start,
+                                :date_finish, :photo, :completed,
+                                trade_ids: [])
   end
 
   def set_trades
@@ -59,5 +61,5 @@ class JobsController < ApplicationController
 
   def check_auth
     authorize Job
-end
+  end
 end
