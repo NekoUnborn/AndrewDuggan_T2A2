@@ -7,7 +7,11 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def select_role?
-    by_user?
+    true
+  end
+
+  def assign_role?
+    select_role?
   end
 
   def show?
@@ -15,7 +19,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def create?
-    by_user? || super
+    return true if !@user.profile
   end
 
   def new?
@@ -50,7 +54,7 @@ class ProfilePolicy < ApplicationPolicy
   private
 
   def by_user?
-    user.id? && record == user
+    @user && @record == @user
   end
 end
 

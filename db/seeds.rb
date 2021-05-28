@@ -73,7 +73,6 @@ addresses =
     profile: Profile.create(profile)
   }
 
-
 Address.create(addresses)
 
 admin = User.find_by(username: "admin")

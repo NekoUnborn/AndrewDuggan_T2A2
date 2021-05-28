@@ -1,17 +1,19 @@
 class ProfilesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
-  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
+  before_action :set_current_user_profile, only: :select_role
   before_action :set_profile, only: %i[update edit]
-  before_action :set_extras, only: %i[update edit]
-  before_action :check_auth
+  before_action :set_extras, only: %i[new create update edit]
+  before_action :check_auth, only: %i[edit update]
 
   def select_role
-    @roles = Role.where(name: 'admin').not
+    @user = current_user
+    @roles = Role.where.not(name: 'admin')
   end
 
   def assign_role
-    user = User.find(params[:id])
+    user = User.find(current_user.id)
     role = Role.find(params[:role_id])
     user.add_role(role.name.to_sym)
     redirect_to new_profile_path
@@ -20,19 +22,19 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
     @profile.build_address
+    @trades = Trade.order(:id)
   end
 
   def create
     @profile = Profile.new(profile_params)
+    @profile.user = current_user
     if @profile.save
-      redirect_to @profile
+      redirect_to root_path
     else
       flash.now[:errors] = @profile.errors.full_messages
       render action: 'new'
     end
   end
-
-  # def show; end
 
   def edit; end
 
@@ -45,15 +47,14 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @profile.destroy
-  #   redirect_to profiles_path
-  # end
-
   private
 
   def set_profile
     @profile = Profile.find(params[:id])
+  end
+  
+  def set_current_user_profile
+    @profile = current_user.profile || Profile
   end
 
   def profile_params
@@ -66,16 +67,12 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:role_id, :user_id)
   end
 
-  def set_trades
-    @trades = Trade.order(:id)
-  end
-
   def set_extras
-    @jobs = Jobs.order(:title)
+    @trades = Trade.order(:id)
     @states = State.order(:id)
   end
 
   def check_auth
-    authorize Profile
+    authorize @profile
   end
 end

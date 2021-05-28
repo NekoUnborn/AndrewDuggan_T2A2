@@ -1,6 +1,6 @@
 class TradesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
-  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
   before_action :set_trade, only: %i[show update destroy edit]
   before_action :check_auth
@@ -15,8 +15,9 @@ class TradesController < ApplicationController
 
   def create
     @trade = Trade.new(trade_params)
+    @trade.user = current_user
     if @trade.save
-      redirect_to @trade
+      redirect_to trades_path
     else
       flash.now[:errors] = @trade.errors.full_messages
       render action: 'new'

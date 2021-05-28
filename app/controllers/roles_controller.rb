@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   # DELETE THIS BEFORE RELEASE
-  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
 
   before_action :set_role, only: %i[show update destroy edit remove_role]
   before_action :check_auth
@@ -15,8 +15,9 @@ class RolesController < ApplicationController
 
   def create
     @role = Role.new(role_params)
+    @role.user = current_user
     if @role.save
-      redirect_to @role
+      redirect_to roles_path
     else
       flash.now[:errors] = @role.errors.full_messages
       render action: 'new'
