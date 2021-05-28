@@ -1,0 +1,11 @@
+<%# form_for(user, as: user_role, url: add_role_path(user_role), html: { method: :patch }) do |f| %>
+<%= form_with model: @profile, local: true do |f| %>
+  <div>
+    <%= f.label :role %>
+    <%= f.collection_select :role_id, @roles, :id, :name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Chosen Role" %>
+  </div>
+<% end %>

@@ -6,8 +6,8 @@ class ProfilePolicy < ApplicationPolicy
     @record = record
   end
 
-  def index?
-    super
+  def select_role?
+    by_user?
   end
 
   def show?

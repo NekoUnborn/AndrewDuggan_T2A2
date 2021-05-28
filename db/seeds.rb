@@ -52,9 +52,9 @@ State.create(states)
 # Address.destroy_all
 
 user = {
-  username: "admin",
-  email: "admin@admin.com",
-  password: "Password"
+  username: ENV['ADMIN_USERNAME'],
+  email: ENV['ADMIN_EMAIL'],
+  password: ENV['ADMIN_PASSWORD']
 }
 
 profile = {
@@ -81,3 +81,7 @@ admin.add_role :admin
 admin.add_role :tradie
 
 # creates a job for the admin user
+job = {
+  title: "Paint House",
+  Description: 
+}

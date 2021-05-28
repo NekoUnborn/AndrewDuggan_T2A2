@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
   def index
-    redirect_to new_profile_path unless current_user.profile.id?
+    redirect_to select_role_path(current_user) if current_user.profile.nil?
   end
 
   private

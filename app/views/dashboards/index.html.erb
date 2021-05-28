@@ -1,10 +1,23 @@
 <h1><%= "#{current_user.username}'s Page" %></h1>
 <p><%= current_user.email %></p>
+<hr />
 <h2>Profile</h2>
-<% if current_user.has_role? :user %>
-
-<% end %>
 <% if current_user.has_role? :tradie %>
-
+  <h3>Business: <%= current_user.profile.business  %></h3>
+  <h3>Trades: <%= current_user.profile.trades.map {|trade| trade.name}.join(", ") %></h3>
+  <% end %>
+<% if current_user.has_role? :user %>
+  <h3><strong>Address: </strong><%= "#{current_user.profile.address.unit'/' if current_user.profile.address.unit?} #{current_user.profile.address.house_number} #{current_user.profile.address.street}, #{current_user.profile.address.suburb} #{current_user.profile.address.postcode} #{current_user.profile.address.state.name}" %></h3>
 <% end %>
+  <p>
+<hr />
+    <%= link_to "<< Back", users_path %>
+    <% if policy(Profile).edit? || policy(User).destroy? %>
+      <td>
+        <%= link_to 'Edit', edit_profile_path(current_user.profile.id) if policy(Job).edit? %>
+        |
+        <%= link_to 'Destroy', current_user, method: :delete, data: { confirm: 'Are you sure?' } if policy(User).destroy? %>
+      </td>
+    <% end %>
+  </p>
 <%= %>

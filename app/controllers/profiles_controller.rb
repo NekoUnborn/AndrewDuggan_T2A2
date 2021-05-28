@@ -6,9 +6,16 @@ class ProfilesController < ApplicationController
   before_action :set_extras, only: %i[update edit]
   before_action :check_auth
 
-  # def index
-  #   @profiles = Profile.all
-  # end
+  def select_role
+    @roles = Role.where(name: 'admin').not
+  end
+
+  def assign_role
+    user = User.find(params[:id])
+    role = Role.find(params[:role_id])
+    user.add_role(role.name.to_sym)
+    redirect_to new_profile_path
+  end
 
   def new
     @profile = Profile.new
@@ -55,15 +62,17 @@ class ProfilesController < ApplicationController
                                     jobs_id: [],
                                     trades_id: [])
   end
+  def role_params
+    params.require(:profile).permit(:role_id, :user_id)
+  end
 
   def set_trades
     @trades = Trade.order(:id)
   end
 
   def set_extras
-    @jobs = Jobs.all
-    @addresses = Address.all
-    @states = State.all
+    @jobs = Jobs.order(:title)
+    @states = State.order(:id)
   end
 
   def check_auth

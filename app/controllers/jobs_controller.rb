@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   # DELETE THIS BEFORE RELEASE
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
   before_action :set_job, only: %i[show update destroy edit]
-  before_action :set_trades, only: %i[show update destroy edit]
+  before_action :set_trades, only: %i[new create update edit]
   before_action :check_auth
 
   def index
@@ -54,6 +54,7 @@ class JobsController < ApplicationController
   def set_trades
     @trades = Trade.order(:id)
   end
+
   def check_auth
     authorize Job
 end

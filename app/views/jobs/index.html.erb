@@ -5,6 +5,9 @@
     <th>Title</th>
     <th>Description</th>
     <th>Trades</th>
+    <th>Start Date</th>
+    <th>Date Finished by</th>
+    <th>Completed</th>
     <% if policy(Job).edit? || policy(Job).destroy? %>
       <th>Actions</th>
     <% end%>
@@ -12,8 +15,12 @@
   <% @jobs.each do |job| %>
     <tr>
       <td><%= link_to job.title, job_path(job) %></td>
-      <td><%= link_to job.author.full_name, author_path(job.author) %></td>
-      <td><%= job.genres_to_csv %></td>
+      <td><%= job.description %></td>
+        <td><%= user.profile.trades.map {|trade| trade.name}.join(", ") %></td>
+      <td><%= job.date_start %></td>
+      <td><%= job.date_finish %></td>
+      <td><%= job.completed %></td>
+        
       <% if policy(Job).edit? || policy(Job).destroy? %>
         <td>
           <%= link_to 'Edit', edit_job_path(job) if policy(Job).edit? %>
