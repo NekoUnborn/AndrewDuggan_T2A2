@@ -81,7 +81,7 @@ admin.add_role :admin
 admin.add_role :tradie
 
 # creates a job for the admin user
-job = {
-  title: "Paint House",
-  Description: 
-}
+# job = {
+#   title: "Paint House",
+#   Description: 
+# }
