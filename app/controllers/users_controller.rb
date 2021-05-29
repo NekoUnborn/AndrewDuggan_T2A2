@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # DELETE THIS BEFORE RELEASE
-  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+
   before_action :check_auth
 
   def index
