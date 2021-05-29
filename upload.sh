@@ -13,4 +13,4 @@ git commit -m "$str"
 git push origin main
 
 # to heroku
-git push heroku main
+# git push heroku main

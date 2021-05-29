@@ -46,11 +46,7 @@ states = [
 ]
 State.create(states)
 
-# # Seed admin user
-
-# Profile.destroy_all
-# Address.destroy_all
-
+# Seed admin user
 user = {
   username: ENV['ADMIN_USERNAME'],
   email: ENV['ADMIN_EMAIL'],
@@ -77,6 +73,7 @@ Address.create(addresses)
 
 admin = User.find_by(username: "admin")
 admin.add_role :admin
+admin.add_role :user
 admin.add_role :tradie
 
 # creates a job for the admin user

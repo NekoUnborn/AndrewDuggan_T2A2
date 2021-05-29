@@ -64,8 +64,4 @@ class RolesController < ApplicationController
   def check_auth
     authorize Role
   end
-
-  def check_auth
-    authorize Role
-end
 end

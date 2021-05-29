@@ -9,8 +9,7 @@ class DashboardsController < ApplicationController
     if current_user.has_role? :user
       @jobs = current_user.profile.jobs.all
     elsif current_user.has_role? :tradie
-      raise
-      @jobs = Job.where(trade_id: [current_user.prof-2ile.trades])
+      @jobs = Job.joins(:trades).where(trades: current_user.profile.trades).uniq
     end
   end
 

@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      redirect_to @profile
+      redirect_to root_path
     else
       flash.now[:errors] = @profile.errors.full_messages
       render action: 'edit'
@@ -60,9 +60,10 @@ class ProfilesController < ApplicationController
   def profile_params
     params.require(:profile).permit(:business,
                                     address_attributes: %i[unit house_number street suburb postcode state_id],
-                                    jobs_id: [],
-                                    trades_id: [])
+                                    job_ids: [],
+                                    trade_ids: [])
   end
+
   def role_params
     params.require(:profile).permit(:role_id, :user_id)
   end
