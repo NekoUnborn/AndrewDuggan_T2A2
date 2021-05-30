@@ -34,6 +34,10 @@ class RolePolicy < ApplicationPolicy
     by_user? || super
   end
 
+  def remove_role_from_user?
+    user.has_role? :admin
+  end
+
   class Scope
     attr_reader :user, :scope
 
