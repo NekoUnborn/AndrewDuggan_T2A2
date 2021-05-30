@@ -1,29 +1,33 @@
 <%= form_with model: @job, local: true do |f| %>
-  <p>
+  <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :description %>
     <%= f.text_area :description %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :trades %>
     <%= f.collection_check_boxes :trade_ids, @trades, :id, :name %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :date_start %>
     <%= f.date_field :date_start %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :date_finish %>
     <%= f.date_field :date_finish %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :completed %>
     <%= f.check_box :completed %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
+    <%= f.label :picture %>
+    <%= f.file_field :picture, accept: "image.png, image.jpg, image.jpeg" %>
+  </div>
+  <div>
     <%= f.submit %>
-  </p>
+  </div>
 <% end %>

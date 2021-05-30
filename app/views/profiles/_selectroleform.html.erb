@@ -1,9 +1,9 @@
 <%= form_with url: add_role_path, method: :post do |f| %>
-  <div>
+  <div class="field">
     <%= f.label :role %>
     <%= f.collection_select :role_id, @roles, :id, :name %>
   </div>
-  <div class="actions">
+  <div>
     <%= f.submit "Chosen Role" %>
   </div>
 <% end %>

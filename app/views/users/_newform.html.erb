@@ -1,9 +1,9 @@
 <%= form_with model: @profile, local: true do |f| %>
-  <p>
+  <div>
     <%= f.label :role %>
     <%= f.collection_select :role, @roles, :id, :name %>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= f.submit %>
-  </p>
+  </div>
 <% end %>

@@ -43,7 +43,7 @@ class JobsController < ApplicationController
 
   def destroy
     @job.destroy
-    redirect_to jobs_path
+    redirect_to dashboards_path
   end
 
   private
@@ -60,7 +60,7 @@ class JobsController < ApplicationController
 
   def job_params
     params.require(:job).permit(:title, :description, :date_start,
-                                :date_finish, :photo, :completed,
+                                :date_finish, :picture, :completed,
                                 trade_ids: [])
   end
 

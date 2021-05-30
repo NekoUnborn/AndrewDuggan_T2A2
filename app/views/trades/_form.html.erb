@@ -1,9 +1,9 @@
 <%= form_with model: @trade, local: true do |f| %>
-    <p>
+    <div>
         <%= f.label :name %>
         <%= f.text_field :name %>
-    </p>
-    <p>
+    </div>
+    <div>
         <%= f.submit %>
-    </p>
+    </div>
 <% end %>

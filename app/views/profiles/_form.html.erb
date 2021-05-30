@@ -1,45 +1,49 @@
 <%= form_with model: @profile, local: true do |f| %>
   <% if current_user.has_role? :tradie %>
-    <p>
+    <div class="field">
       <%= f.label :business %>
       <%= f.text_field :business %>
-    </p>
-    <p>
+    </div>
+    <div class="field">
       <%= f.label :trades %>
       <%= f.collection_check_boxes :trade_ids, @trades, :id, :name %>
-    </p>
+    </div>
+    <div class="field">
+      <%= f.label :picture %>
+      <%= f.file_field :picture, accept: "image.png, image.jpg, image.jpeg" %>
+    </div>
   <% end %>
   <% if current_user.has_role? :user %>
     <%= f.fields_for :address do |address_subform| %>
       <%# fields for the associated address object %>
-      <p>
+      <div class="field">
         <%= address_subform.label :unit %>
         <%= address_subform.text_field :unit %>
-      </p>
-      <p>
+      </div>
+      <div class="field">
         <%= address_subform.label :house_number %>
         <%= address_subform.text_field :house_number %>
-      </p>
-      <p>
+      </div>
+      <div class="field">
         <%= address_subform.label :street %>
         <%= address_subform.text_field :street %>
-      </p>
-      <p>
+      </div>
+      <div class="field">
         <%= address_subform.label :suburb %>
         <%= address_subform.text_field :suburb %>
-      </p>
-      <p>
+      </div>
+      <div class="field">
         <%= address_subform.label :postcode %>
         <%= address_subform.text_field :postcode %>
-      </p>
+      </div>
       <%# Finds all of the states from the states db and displays them as a selection %>
-      <p>
+      <div class="field">
         <%= address_subform.label :state %>
         <%= address_subform.collection_select :state_id, @states, :id, :name %>
-      </p>
+      </div>
     <% end %>
   <% end %>
-  <p>
+  <div>
     <%= f.submit %>
-  </p>
+  </div>
 <% end %>

@@ -1,14 +1,15 @@
 <h1><%= @job.title %></h1>
 <h3>By <%= @job.profile.user.username %></h3>
-
+<div> <% if @job.picture.attached? %>
+  <%= cl_image_tag @job.picture.key, width: 120, cloud_name: 'neko42' %>
+  <% end %>
+</div>
 <hr />
-
 <h3>Description: <%= @job.description %></h3>
 <h3>Trades: </strong><%= @job.trades.map {|trade| trade.name}.join(", ") %></h3>
 <h3>Date to start: <%= @job.date_start %></h3>
 <h3>Date to finish by: <%= @job.date_finish %></h3>
 <h3>Completed: <%= @job.completed %></h3>
-
 <hr />
 <h1>Tradies</h1>
 <table>
@@ -18,14 +19,18 @@
     <th>Business Name</th>
     <th>Trades</th>
   </tr>
-  
   <% @tradies.each do |user| %>
-      <tr>
-        <td><%= user.username %></td>
-        <td><%= user.email %></td>
-        <td><%= user.profile.business %></td>
-        <td><%= user.profile.trades.map {|trade| trade.name}.join(", ") %></td>
-      </tr>
+    <tr>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td>
+        <% if user.profile.picture.attached? %>
+          <%= cl_image_tag user.profile.picture.key, width: 120, cloud_name: 'neko42' %>
+        <% end %>
+      </td>
+      <td><%= user.profile.business %></td>
+      <td><%= user.profile.trades.map {|trade| trade.name}.join(", ") %></td>
+    </tr>
   <% end %>
 </table>
 <p>

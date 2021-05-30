@@ -1,14 +1,14 @@
 <%= form_with model: @user, local: true do |f| %>
-    <p>
+    <div>
         <%= f.label :username %>
         <%= f.text_field :username %>
-    </p>
-    <p>
+    </div>
+    <div>
         <%= f.label :email %>
         <%= f.text_field :email %>
-    </p>
+    </div>
     
-    <p>
+    <div>
         <%= f.submit %>
-    </p>
+    </div>
 <% end %>

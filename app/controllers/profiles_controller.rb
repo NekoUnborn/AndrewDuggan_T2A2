@@ -62,7 +62,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:business,
+    params.require(:profile).permit(:business, :picture,
                                     address_attributes: %i[unit house_number street suburb postcode state_id],
                                     job_ids: [],
                                     trade_ids: [])
