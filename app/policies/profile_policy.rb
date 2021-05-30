@@ -15,7 +15,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    by_user? || super
+    owner? || super
   end
 
   def create?
@@ -27,7 +27,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def update?
-    by_user? || super
+    owner? || super
   end
 
   def edit?
@@ -35,7 +35,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def destroy?
-    super
+    owner? || super
   end
 
   class Scope
@@ -51,10 +51,7 @@ class ProfilePolicy < ApplicationPolicy
     end
   end
 
-  private
-
-  def by_user?
-    @user && @record == @user
+  def owner?
+    user.id? || record.user == user
   end
 end
-

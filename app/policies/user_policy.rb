@@ -11,11 +11,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    by_user? || super
+    super
   end
 
   def create?
-    by_user? || super
+    owner? || super
   end
 
   def new?
@@ -23,7 +23,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    by_user? || super
+    owner? || super
   end
 
   def edit?
@@ -31,7 +31,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    by_user? || super
+    owner? || super
   end
 
   class Scope
@@ -47,10 +47,7 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
-  private
-
-  def by_user?
-    user.id? && record == user
+  def owner?
+    record == user
   end
 end
-

@@ -7,6 +7,7 @@ class DashboardPolicy < ApplicationPolicy
   end
 
   def index?
+    true
   end
 
   class Scope

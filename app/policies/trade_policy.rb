@@ -11,11 +11,11 @@ class TradePolicy < ApplicationPolicy
   end
 
   def show?
-    by_user? || super
+    super
   end
 
   def create?
-    by_user? || super
+    super
   end
 
   def new?
@@ -23,7 +23,7 @@ class TradePolicy < ApplicationPolicy
   end
 
   def update?
-    by_user? || super
+    super
   end
 
   def edit?
@@ -31,7 +31,7 @@ class TradePolicy < ApplicationPolicy
   end
 
   def destroy?
-    by_user? || super
+    super
   end
 
   class Scope
@@ -45,12 +45,6 @@ class TradePolicy < ApplicationPolicy
     def resolve
       scope.all
     end
-  end
-
-  private
-
-  def by_user?
-    user.id? && record == user
   end
 end
 
