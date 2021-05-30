@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'profiles/selectrole/', to: 'profiles#select_role', as: 'select_role'
   post 'profiles/assignrole/', to: 'profiles#assign_role', as: 'add_role'
-  delete 'roles/removerolefromuser/:user_id/:role_id', to: 'roles#remove_role_from_user', as: 'remove_role_from_user'
+  delete 'roles/removerolefromuser/:role_id/:user_id', to: 'roles#remove_role_from_user', as: 'remove_role_from_user'
 
   resources :roles, :users, :trades, :jobs, :profiles, :dashboards
   resources :users, only: %i[show edit update]
