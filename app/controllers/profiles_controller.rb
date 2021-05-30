@@ -9,6 +9,7 @@ class ProfilesController < ApplicationController
 
   def select_role
     @user = current_user
+    # Finds all of the roles that are not :admin
     @roles = Role.where.not(name: 'admin')
   end
 
@@ -22,6 +23,7 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
     @profile.build_address
+    # Finds all of the Trades in :id order
     @trades = Trade.order(:id)
   end
 
@@ -50,10 +52,12 @@ class ProfilesController < ApplicationController
   private
 
   def set_profile
+    # Finds the profile referenced
     @profile = Profile.find(params[:id])
   end
-  
+
   def set_current_user_profile
+    # Sets the profile as either the current user profile if it exists
     @profile = current_user.profile || Profile
   end
 

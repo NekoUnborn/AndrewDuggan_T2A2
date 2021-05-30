@@ -43,8 +43,10 @@ class RolesController < ApplicationController
   end
 
   def remove_role_from_user
-    user = User.find(params[:user_id])
+    # Finds the referenced Role
     role = Role.find(params[:role_id])
+    # Finds the referenced User
+    user = User.find(params[:user_id])
     user.remove_role(role.name.to_sym)
     redirect_to role
   end
@@ -54,6 +56,7 @@ class RolesController < ApplicationController
   private
 
   def set_role
+    # Finds the referenced Role
     @role = Role.find(params[:id])
   end
 

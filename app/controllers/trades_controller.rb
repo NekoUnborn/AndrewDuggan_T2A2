@@ -6,6 +6,7 @@ class TradesController < ApplicationController
   before_action :check_auth
 
   def index
+    # Finds all Trades
     @trades = Trade.all
   end
 
@@ -44,13 +45,15 @@ class TradesController < ApplicationController
   private
 
   def set_trade
+    # Finds the referenced Trade
     @trade = Trade.find(params[:id])
   end
 
   def trade_params
     params.require(:trade).permit(:name)
   end
+
   def check_auth
     authorize Trade
-end
+  end
 end

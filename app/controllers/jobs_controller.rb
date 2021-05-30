@@ -7,6 +7,7 @@ class JobsController < ApplicationController
   before_action :check_auth
 
   def index
+    # Finds all of the Jobs
     @jobs = Job.all
   end
 
@@ -48,12 +49,12 @@ class JobsController < ApplicationController
   private
 
   def set_job
-    # Finds the job by the url :id
+    # Finds the referenced Job
     @job = Job.find(params[:id])
   end
 
   def set_tradies
-    #finds the Users that have the profile that have the same trades as the jobs
+    # Finds the Users that have the profile that have the same trades as the jobs
     @tradies = User.where(profile: Profile.joins(:trades).where(trades: @job.trades).uniq)
   end
 
@@ -64,6 +65,7 @@ class JobsController < ApplicationController
   end
 
   def set_trades
+    # Finds all of the thrades and orders them in :id order
     @trades = Trade.order(:id)
   end
 
