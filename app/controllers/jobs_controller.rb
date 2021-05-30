@@ -25,7 +25,9 @@ class JobsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    set_tradies
+  end
 
   def edit; end
 
@@ -46,7 +48,13 @@ class JobsController < ApplicationController
   private
 
   def set_job
+    # Finds the job by the url :id
     @job = Job.find(params[:id])
+  end
+
+  def set_tradies
+    #finds the Users that have the profile that have the same trades as the jobs
+    @tradies = User.where(profile: Profile.joins(:trades).where(trades: @job.trades).uniq)
   end
 
   def job_params
